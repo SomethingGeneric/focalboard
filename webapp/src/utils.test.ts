@@ -164,6 +164,39 @@ describe('utils', () => {
         })
     })
 
+    describe('get date urgency', () => {
+        it('should return "past" for dates in the past', () => {
+            const yesterday = new Date()
+            yesterday.setDate(yesterday.getDate() - 1)
+            expect(Utils.getDateUrgency(yesterday)).toBe('past')
+        })
+
+        it('should return "urgent" for dates within 3 days', () => {
+            const tomorrow = new Date()
+            tomorrow.setDate(tomorrow.getDate() + 1)
+            expect(Utils.getDateUrgency(tomorrow)).toBe('urgent')
+
+            const twoDaysFromNow = new Date()
+            twoDaysFromNow.setDate(twoDaysFromNow.getDate() + 2)
+            expect(Utils.getDateUrgency(twoDaysFromNow)).toBe('urgent')
+        })
+
+        it('should return "urgent" for today', () => {
+            const today = new Date()
+            expect(Utils.getDateUrgency(today)).toBe('urgent')
+        })
+
+        it('should return "normal" for dates 3 or more days away', () => {
+            const threeDaysFromNow = new Date()
+            threeDaysFromNow.setDate(threeDaysFromNow.getDate() + 3)
+            expect(Utils.getDateUrgency(threeDaysFromNow)).toBe('normal')
+
+            const oneWeekFromNow = new Date()
+            oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7)
+            expect(Utils.getDateUrgency(oneWeekFromNow)).toBe('normal')
+        })
+    })
+
     describe('compare versions', () => {
         it('should return one if b > a', () => {
             expect(Utils.compareVersions('0.9.4', '0.10.0')).toBe(1)
