@@ -364,6 +364,23 @@ class Utils {
         return moment(date).locale(intl.locale.toLowerCase()).fromNow()
     }
 
+    static getDateUrgency(date: Date): 'past' | 'urgent' | 'normal' {
+        const now = new Date()
+        now.setHours(0, 0, 0, 0)
+        const targetDate = new Date(date)
+        targetDate.setHours(0, 0, 0, 0)
+
+        const diffMs = targetDate.getTime() - now.getTime()
+        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+
+        if (diffDays < 0) {
+            return 'past'
+        } else if (diffDays < 3) {
+            return 'urgent'
+        }
+        return 'normal'
+    }
+
     static sleep(miliseconds: number): Promise<void> {
         return new Promise((resolve) => setTimeout(resolve, miliseconds))
     }

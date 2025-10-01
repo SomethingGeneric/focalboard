@@ -81,4 +81,33 @@
             -webkit-box-orient: vertical; // stylelint-disable-line
         }
     }
+
+    .octo-card-date {
+        font-size: 12px;
+        line-height: 16px;
+        margin-bottom: 8px;
+        padding: 2px 6px;
+        border-radius: 3px;
+        display: inline-block;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &.octo-card-date-past {
+            background-color: var(--prop-red);
+            font-weight: 700;
+            color: rgb(var(--center-channel-color-rgb));
+        }
+
+        &.octo-card-date-urgent {
+            background-color: var(--prop-orange);
+            color: rgb(var(--center-channel-color-rgb));
+        }
+
+        &.octo-card-date-normal {
+            background-color: rgba(var(--center-channel-color-rgb), 0.08);
+            color: rgba(var(--center-channel-color-rgb), 0.72);
+        }
+    }
 }
