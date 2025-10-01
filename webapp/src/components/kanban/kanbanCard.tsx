@@ -56,6 +56,11 @@ const KanbanCard = (props: Props) => {
             return null
         }
 
+        // Don't show date separately if it's already visible in the properties list
+        if (visiblePropertyTemplates.some((t) => t.id === dateTemplate.id)) {
+            return null
+        }
+
         const dateValue = card.fields.properties[dateTemplate.id]
         if (!dateValue) {
             return null
@@ -73,7 +78,7 @@ const KanbanCard = (props: Props) => {
             displayValue: property.displayValue(dateValue, card, dateTemplate, intl),
             urgency: Utils.getDateUrgency(dateFrom),
         }
-    }, [board.cardProperties, card, intl])
+    }, [board.cardProperties, card, intl, visiblePropertyTemplates])
 
     const [showConfirmationDialogBox, setShowConfirmationDialogBox] = useState<boolean>(false)
     const handleDeleteCard = useCallback(() => {
