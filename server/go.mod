@@ -9,7 +9,7 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/mux v1.8.1
 	github.com/gorilla/websocket v1.5.1
-	github.com/krolaw/zipstream v0.0.0-20180621105154-0a2661891f94
+	github.com/krolaw/zipstream 4a67be70fe31
 	github.com/lib/pq v1.10.9
 	github.com/mattermost/logr/v2 v2.0.21
 	github.com/mattermost/mattermost/server/public v0.1.3
