@@ -17,6 +17,8 @@ import './kanbanCard.scss'
 import CardBadges from '../cardBadges'
 import CardActionsMenu from '../cardActionsMenu/cardActionsMenu'
 import CardActionsMenuIcon from '../cardActionsMenu/cardActionsMenuIcon'
+import propsRegistry from '../../properties'
+import {DatePropertyType} from '../../properties/types'
 
 export const OnboardingCardClassName = 'onboardingCard'
 
@@ -42,6 +44,36 @@ const KanbanCard = (props: Props) => {
     if (props.isManualSort && isOver) {
         className += ' dragover'
     }
+
+    // Find first date property to display with urgency
+    const dateProperty = useMemo(() => {
+        const dateTemplate = board.cardProperties.find((template) => {
+            const property = propsRegistry.get(template.type)
+            return property instanceof DatePropertyType
+        })
+
+        if (!dateTemplate) {
+            return null
+        }
+
+        const dateValue = card.fields.properties[dateTemplate.id]
+        if (!dateValue) {
+            return null
+        }
+
+        const property = propsRegistry.get(dateTemplate.type) as DatePropertyType
+        const dateFrom = property.getDateFrom(dateValue, card)
+
+        if (!dateFrom) {
+            return null
+        }
+
+        return {
+            date: dateFrom,
+            displayValue: property.displayValue(dateValue, card, dateTemplate, intl),
+            urgency: Utils.getDateUrgency(dateFrom),
+        }
+    }, [board.cardProperties, card, intl])
 
     const [showConfirmationDialogBox, setShowConfirmationDialogBox] = useState<boolean>(false)
     const handleDeleteCard = useCallback(() => {
@@ -130,6 +162,11 @@ const KanbanCard = (props: Props) => {
                         {card.title || intl.formatMessage({id: 'KanbanCard.untitled', defaultMessage: 'Untitled'})}
                     </div>
                 </div>
+                {dateProperty && (
+                    <div className={`octo-card-date octo-card-date-${dateProperty.urgency}`}>
+                        {dateProperty.displayValue}
+                    </div>
+                )}
                 {visiblePropertyTemplates.map((template) => (
                     <Tooltip
                         key={template.id}
