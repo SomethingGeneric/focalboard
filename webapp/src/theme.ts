@@ -39,28 +39,28 @@ export const systemThemeName = 'system-theme'
 export const defaultThemeName = 'default-theme'
 
 export const defaultTheme = {
-    mainBg: '255, 255, 255',
-    mainFg: '63, 67, 80',
-    buttonBg: '28, 88, 217',
+    mainBg: '18, 18, 18',
+    mainFg: '230, 230, 230',
+    buttonBg: '60, 120, 180',
     buttonFg: '255, 255, 255',
-    sidebarBg: '30, 50, 92',
-    sidebarFg: '255, 255, 255',
-    sidebarTextActiveBorder: '93, 137, 243',
+    sidebarBg: '24, 24, 24',
+    sidebarFg: '240, 240, 240',
+    sidebarTextActiveBorder: '80, 140, 200',
     sidebarWhiteLogo: 'true',
 
-    link: '93, 137, 234',
-    linkVisited: '#551a8b',
+    link: '#4A9EFF',
+    linkVisited: 'hsla(270, 60%, 65%, 1.0)',
 
-    propDefault: '#fff',
-    propGray: '#EDEDED',
-    propBrown: '#F7DDC3',
-    propOrange: '#ffd3c1',
-    propYellow: '#f7f0b6',
-    propGreen: '#c7eac3',
-    propBlue: '#B1D1F6',
-    propPurple: '#e6d0ff',
-    propPink: '#ffd6e9',
-    propRed: '#ffa9a9',
+    propDefault: 'hsla(0, 0%, 20%, 1.0)',
+    propGray: 'hsla(0, 0%, 35%, 1.0)',
+    propBrown: 'hsla(25, 40%, 30%, 1.0)',
+    propOrange: 'hsla(35, 60%, 35%, 1.0)',
+    propYellow: 'hsla(48, 60%, 35%, 1.0)',
+    propGreen: 'hsla(120, 40%, 30%, 1.0)',
+    propBlue: 'hsla(210, 50%, 30%, 1.0)',
+    propPurple: 'hsla(270, 45%, 30%, 1.0)',
+    propPink: 'hsla(310, 40%, 30%, 1.0)',
+    propRed: 'hsla(4, 50%, 30%, 1.0)',
 }
 
 export const darkThemeName = 'dark-theme'
@@ -92,6 +92,35 @@ export const darkTheme = {
     propRed: 'hsla(4, 100%, 70%, 0.4)',
 }
 
+export const trulyDarkThemeName = 'truly-dark-theme'
+
+export const trulyDarkTheme = {
+    ...defaultTheme,
+
+    mainBg: '18, 18, 18',
+    mainFg: '230, 230, 230',
+    buttonBg: '60, 120, 180',
+    buttonFg: '255, 255, 255',
+    sidebarBg: '24, 24, 24',
+    sidebarFg: '240, 240, 240',
+    sidebarTextActiveBorder: '80, 140, 200',
+    sidebarWhiteLogo: 'true',
+
+    link: '#4A9EFF',
+    linkVisited: 'hsla(270, 60%, 65%, 1.0)',
+
+    propDefault: 'hsla(0, 0%, 20%, 1.0)',
+    propGray: 'hsla(0, 0%, 35%, 1.0)',
+    propBrown: 'hsla(25, 40%, 30%, 1.0)',
+    propOrange: 'hsla(35, 60%, 35%, 1.0)',
+    propYellow: 'hsla(48, 60%, 35%, 1.0)',
+    propGreen: 'hsla(120, 40%, 30%, 1.0)',
+    propBlue: 'hsla(210, 50%, 30%, 1.0)',
+    propPurple: 'hsla(270, 45%, 30%, 1.0)',
+    propPink: 'hsla(310, 40%, 30%, 1.0)',
+    propRed: 'hsla(4, 50%, 30%, 1.0)',
+}
+
 export const lightThemeName = 'light-theme'
 
 export const lightTheme = {
@@ -116,7 +145,7 @@ export function setTheme(theme: Theme | null): Theme {
         UserSettings.theme = ''
         const darkThemeMq = window.matchMedia('(prefers-color-scheme: dark)')
         if (darkThemeMq.matches) {
-            consolidatedTheme = {...defaultTheme, ...darkTheme}
+            consolidatedTheme = {...defaultTheme, ...trulyDarkTheme}
         }
     }
 
@@ -180,6 +209,8 @@ export function setMattermostTheme(theme: any): Theme {
 function setActiveThemeName(consolidatedTheme: Theme, theme: Theme | null) {
     if (theme === null) {
         activeThemeName = systemThemeName
+    } else if (isEqual(consolidatedTheme, trulyDarkTheme)) {
+        activeThemeName = trulyDarkThemeName
     } else if (isEqual(consolidatedTheme, darkTheme)) {
         activeThemeName = darkThemeName
     } else if (isEqual(consolidatedTheme, lightTheme)) {
