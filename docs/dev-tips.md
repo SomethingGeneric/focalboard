@@ -8,21 +8,8 @@ For working with the Focalboard plugin, refer to the [Focalboard Plugin Develope
 
 Check that you have recent versions of the basic dependencies installed:
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-    * On Windows, install [Git for Windows](https://gitforwindows.org/) and use the git-bash terminal shell
-* [Go](https://golang.org/doc/install)
-* [Node](https://nodejs.org/en/download/) (v10+) and [npm](https://www.npmjs.com/get-npm)
-
-On Windows:
-* Install [Mingw64](https://chocolatey.org/packages/mingw) via [Chocolatey](https://chocolatey.org/)
-
-On macOS, to build the Mac app:
-* Install [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12) (v12+)
-* Install the Xcode commandline tools, via the IDE or run `xcode-select --install`
-
-On Linux, to build the Linux app:
-* `sudo apt-get install libgtk-3-dev`
-* `sudo apt-get install libwebkit2gtk-4.0-dev`
-* `sudo apt-get install autoconf dh-autoreconf`
+* [Go](https://golang.org/doc/install) (version specified in `server/go.mod`)
+* [Node.js](https://nodejs.org/en/download/) (version specified in `webapp/.nvmrc`) and npm
 
 ## Fork and clone the project source code
 
