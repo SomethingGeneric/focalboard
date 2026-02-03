@@ -1,0 +1,96 @@
+name: Sanity Check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  sanity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: server/go.mod
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: webapp/.nvmrc
+          cache: npm
+          cache-dependency-path: webapp/package-lock.json
+
+      - name: Install webapp dependencies
+        run: cd webapp && npm ci
+
+      - name: Build webapp
+        run: cd webapp && npm run pack
+
+      - name: Build server
+        env:
+          GOFLAGS: "-tags=json1,sqlite3"
+        run: make server
+
+      - name: Install Playwright
+        run: |
+          npm install -D playwright
+          npx playwright install chromium --with-deps
+
+      - name: Start server in background
+        run: |
+          ./bin/focalboard-server &
+          echo $! > server.pid
+          # Wait for server to be ready
+          timeout 30 bash -c 'until curl -f http://localhost:8000 > /dev/null 2>&1; do sleep 1; done' || (echo "Server failed to start" && exit 1)
+
+      - name: Take screenshot with Playwright
+        run: |
+          cat > take-screenshot.js << 'EOF'
+          const playwright = require('playwright');
+
+          (async () => {
+            const browser = await playwright.chromium.launch();
+            const page = await browser.newPage();
+            
+            try {
+              // Navigate to the application
+              await page.goto('http://localhost:8000', { waitUntil: 'networkidle', timeout: 30000 });
+              
+              // Wait a bit for any dynamic content to load
+              await page.waitForTimeout(2000);
+              
+              // Take a screenshot
+              await page.screenshot({ path: 'sanity-screenshot.png', fullPage: true });
+              
+              console.log('Screenshot taken successfully!');
+            } catch (error) {
+              console.error('Error taking screenshot:', error);
+              process.exit(1);
+            } finally {
+              await browser.close();
+            }
+          })();
+          EOF
+          node take-screenshot.js
+
+      - name: Stop server
+        if: always()
+        run: |
+          if [ -f server.pid ]; then
+            kill $(cat server.pid) || true
+            rm server.pid
+          fi
+
+      - name: Upload screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sanity-screenshot
+          path: sanity-screenshot.png
+          retention-days: 30

@@ -71,3 +71,7 @@ server/vendor
 docker/certs
 docker/data
 server/**/*.coverage
+
+# Sanity check test files
+take-screenshot.js
+sanity-screenshot.png
