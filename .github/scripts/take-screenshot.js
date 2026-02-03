@@ -64,8 +64,8 @@ const testPassword = 'TestPassword123!';
     
     // Wait for templates to be fully loaded
     // The template selector shows when all templates have been fetched and rendered
-    await page.waitForSelector('text=/Meeting Agenda|Personal Tasks/i', { timeout: 5000 }).catch(() => {
-      console.log('Templates not found, proceeding anyway...');
+    await page.waitForSelector('text=/Meeting Agenda|Personal Tasks/i', { timeout: 5000 }).catch((error) => {
+      console.warn('WARNING: Templates not found or failed to load within timeout, proceeding anyway.', error);
     });
     
     console.log(`Taking screenshot: ${outputPath}`);
