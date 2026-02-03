@@ -51,7 +51,11 @@ jobs:
           ./bin/focalboard-server &
           echo $! > server.pid
           # Wait for server to be ready and serving content (max ~30 seconds)
-          timeout 30 bash -c 'until curl -f -s http://localhost:${{ env.SERVER_PORT }} | grep -q "Focalboard"; do sleep 1; done' || (echo "Server failed to become ready" && exit 1)
+          timeout 30 bash -c '
+            until curl -f -s http://localhost:${{ env.SERVER_PORT }} | grep -q "Focalboard"; do
+              sleep 1
+            done
+          ' || (echo "Server failed to become ready" && exit 1)
 
       - name: Take screenshot with Playwright
         env:

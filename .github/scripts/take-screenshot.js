@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
  * Sanity check screenshot script
- * Takes a screenshot of the application running on localhost:8000
- * Usage: node take-screenshot.js <output-path>
+ * Takes a screenshot of the application running on the configured BASE_URL
+ * Usage: BASE_URL=http://localhost:8000 node take-screenshot.js <output-path>
  */
 
 const playwright = require('playwright');
