@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Sanity check screenshot script
- * Takes a screenshot of the Bingusboard application running on localhost:8000
+ * Takes a screenshot of the application running on localhost:8000
  * Usage: node take-screenshot.js <output-path>
  */
 
