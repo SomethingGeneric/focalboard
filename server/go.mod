@@ -17,7 +17,7 @@ require (
 	github.com/mattermost/morph v1.1.0
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
 	github.com/mgdelacroix/foundation v0.0.0-20230510073833-0660207768ef
-	github.com/oklog/run v1.1.0
+	github.com/oklog/run v1.2.0
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.19.1
 	github.com/rivo/uniseg v0.4.7
