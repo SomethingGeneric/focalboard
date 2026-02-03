@@ -62,8 +62,8 @@ jobs:
               // Navigate to the application
               await page.goto('http://localhost:8000', { waitUntil: 'networkidle', timeout: 30000 });
               
-              // Wait a bit for any dynamic content to load
-              await page.waitForTimeout(2000);
+              // Wait for the login form to be visible (indicates page is fully loaded)
+              await page.waitForSelector('input[type="password"]', { timeout: 10000 });
               
               // Take a screenshot
               await page.screenshot({ path: 'sanity-screenshot.png', fullPage: true });
