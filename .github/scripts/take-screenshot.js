@@ -6,6 +6,7 @@
  */
 
 const playwright = require('playwright');
+const path = require('path');
 
 const outputPath = process.argv[2] || 'sanity-screenshot.png';
 const baseUrl = process.env.BASE_URL || 'http://localhost:8000';
@@ -79,7 +80,13 @@ const testPassword = 'TestPassword123!';
     console.error('Error taking screenshot:', error);
     // Take an error screenshot for debugging
     try {
-      await page.screenshot({ path: outputPath.replace('.png', '-error.png'), fullPage: true });
+      // Properly construct error screenshot path with correct extension handling
+      const parsedPath = path.parse(outputPath);
+      const errorScreenshotPath = path.join(
+        parsedPath.dir,
+        `${parsedPath.name}-error${parsedPath.ext}`
+      );
+      await page.screenshot({ path: errorScreenshotPath, fullPage: true });
     } catch (screenshotError) {
       console.error('Failed to take error screenshot:', screenshotError);
     }
