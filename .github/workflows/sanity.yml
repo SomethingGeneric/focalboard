@@ -39,9 +39,6 @@ jobs:
 
       - name: Install Playwright
         run: |
-          mkdir -p /tmp/playwright-install
-          cd /tmp/playwright-install
-          npm init -y
           npm install playwright
           npx playwright install chromium --with-deps
 
@@ -49,38 +46,11 @@ jobs:
         run: |
           ./bin/focalboard-server &
           echo $! > server.pid
-          # Wait for server to be ready (max ~30 seconds)
-          timeout 30 bash -c 'until curl -f http://localhost:8000 > /dev/null 2>&1; do sleep 1; done' || (echo "Server failed to become ready" && exit 1)
+          # Wait for server to be ready and serving content (max ~30 seconds)
+          timeout 30 bash -c 'until curl -f -s http://localhost:8000 | grep -q "Focalboard"; do sleep 1; done' || (echo "Server failed to become ready" && exit 1)
 
       - name: Take screenshot with Playwright
-        run: |
-          cat > take-screenshot.js << 'EOF'
-          const playwright = require('/tmp/playwright-install/node_modules/playwright');
-
-          (async () => {
-            const browser = await playwright.chromium.launch();
-            const page = await browser.newPage();
-            
-            try {
-              // Navigate to the application
-              await page.goto('http://localhost:8000', { waitUntil: 'networkidle', timeout: 30000 });
-              
-              // Wait for the login form to be visible (indicates page is fully loaded)
-              await page.waitForSelector('input[type="password"]', { timeout: 10000 });
-              
-              // Take a screenshot
-              await page.screenshot({ path: 'sanity-screenshot.png', fullPage: true });
-              
-              console.log('Screenshot taken successfully!');
-            } catch (error) {
-              console.error('Error taking screenshot:', error);
-              process.exit(1);
-            } finally {
-              await browser.close();
-            }
-          })();
-          EOF
-          node take-screenshot.js
+        run: node .github/scripts/take-screenshot.js sanity-screenshot.png
 
       - name: Stop server
         if: always()
