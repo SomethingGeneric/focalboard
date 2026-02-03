@@ -39,6 +39,9 @@ jobs:
 
       - name: Install Playwright
         run: |
+          mkdir -p /tmp/playwright-install
+          cd /tmp/playwright-install
+          npm init -y
           npm install playwright
           npx playwright install chromium --with-deps
 
@@ -46,13 +49,13 @@ jobs:
         run: |
           ./bin/focalboard-server &
           echo $! > server.pid
-          # Wait for server to be ready
-          timeout 30 bash -c 'until curl -f http://localhost:8000 > /dev/null 2>&1; do sleep 1; done' || (echo "Server failed to become ready within 30 seconds" && exit 1)
+          # Wait for server to be ready (max ~30 seconds)
+          timeout 30 bash -c 'until curl -f http://localhost:8000 > /dev/null 2>&1; do sleep 1; done' || (echo "Server failed to become ready" && exit 1)
 
       - name: Take screenshot with Playwright
         run: |
           cat > take-screenshot.js << 'EOF'
-          const playwright = require('playwright');
+          const playwright = require('/tmp/playwright-install/node_modules/playwright');
 
           (async () => {
             const browser = await playwright.chromium.launch();
