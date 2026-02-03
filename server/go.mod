@@ -24,7 +24,7 @@ require (
 	github.com/rudderlabs/analytics-go v3.3.3+incompatible
 	github.com/sergi/go-diff v1.4.0
 	github.com/spf13/viper v1.18.2
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.11.1
 	github.com/wiggin77/merror v1.0.5
 	golang.org/x/crypto v0.23.0
 )
