@@ -1,5 +1,5 @@
 ### Webapp build
-FROM node:16.3.0@sha256:ca6daf1543242acb0ca59ff425509eab7defb9452f6ae07c156893db06c7a9a4 as nodebuild
+FROM node:16.20.2@sha256:f77a1aef2da8d83e45ec990f45df50f1a286c5fe8bbfb8c6e4246c6389705c0b as nodebuild
 
 WORKDIR /webapp
 ADD webapp/ /webapp
