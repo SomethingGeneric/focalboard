@@ -39,7 +39,7 @@ jobs:
 
       - name: Install Playwright
         run: |
-          npm install -D playwright
+          npm install playwright
           npx playwright install chromium --with-deps
 
       - name: Start server in background
@@ -47,7 +47,7 @@ jobs:
           ./bin/focalboard-server &
           echo $! > server.pid
           # Wait for server to be ready
-          timeout 30 bash -c 'until curl -f http://localhost:8000 > /dev/null 2>&1; do sleep 1; done' || (echo "Server failed to start" && exit 1)
+          timeout 30 bash -c 'until curl -f http://localhost:8000 > /dev/null 2>&1; do sleep 1; done' || (echo "Server failed to become ready within 30 seconds" && exit 1)
 
       - name: Take screenshot with Playwright
         run: |
