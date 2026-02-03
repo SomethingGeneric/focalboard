@@ -22,7 +22,7 @@ require (
 	github.com/prometheus/client_golang v1.19.1
 	github.com/rivo/uniseg v0.4.7
 	github.com/rudderlabs/analytics-go v3.3.3+incompatible
-	github.com/sergi/go-diff v1.3.1
+	github.com/sergi/go-diff v1.4.0
 	github.com/spf13/viper v1.18.2
 	github.com/stretchr/testify v1.9.0
 	github.com/wiggin77/merror v1.0.5
