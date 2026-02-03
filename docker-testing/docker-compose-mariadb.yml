@@ -1,7 +1,7 @@
 version: '2.4'
 services:
   mariadb:
-    image: "mariadb:10.9.3"
+    image: "mariadb:10.11.15"
     restart: always
     environment:
       MARIADB_ROOT_HOST: "%"
