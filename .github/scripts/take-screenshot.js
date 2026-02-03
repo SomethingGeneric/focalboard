@@ -62,8 +62,11 @@ const testPassword = 'TestPassword123!';
       console.log('No registration link found, taking screenshot of login page');
     }
     
-    // Give a moment for any remaining content to load
-    await page.waitForTimeout(2000);
+    // Wait for templates to be fully loaded
+    // The template selector shows when all templates have been fetched and rendered
+    await page.waitForSelector('text=/Meeting Agenda|Personal Tasks/i', { timeout: 5000 }).catch(() => {
+      console.log('Templates not found, proceeding anyway...');
+    });
     
     console.log(`Taking screenshot: ${outputPath}`);
     
@@ -71,7 +74,7 @@ const testPassword = 'TestPassword123!';
     await page.screenshot({ path: outputPath, fullPage: true });
     
     console.log('Screenshot taken successfully!');
-    console.log(`Test account created: ${testUsername} / ${testPassword}`);
+    console.log(`Test account registered: ${testUsername}`);
   } catch (error) {
     console.error('Error taking screenshot:', error);
     // Take an error screenshot for debugging
