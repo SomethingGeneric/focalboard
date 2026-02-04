@@ -19,7 +19,7 @@ import Kanban from './kanban'
 
 global.fetch = jest.fn()
 jest.mock('../../utils')
-const mockedUtils = mocked(Utils, true)
+const mockedUtils = mocked(Utils)
 const mockedchangePropertyOptionValue = jest.spyOn(mutator, 'changePropertyOptionValue')
 const mockedChangeViewCardOrder = jest.spyOn(mutator, 'changeViewCardOrder')
 const mockedinsertPropertyOption = jest.spyOn(mutator, 'insertPropertyOption')

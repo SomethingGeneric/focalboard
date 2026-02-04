@@ -22,7 +22,7 @@ import octoClient from '../../../../webapp/src/octoClient'
 import Sidebar from './sidebar'
 
 jest.mock('../../../../webapp/src/octoClient')
-const mockedOctoClient = mocked(octoClient, true)
+const mockedOctoClient = mocked(octoClient)
 
 beforeAll(() => {
     mockMatchMedia({matches: true})

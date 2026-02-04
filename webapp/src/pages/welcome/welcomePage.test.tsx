@@ -32,10 +32,10 @@ const w = (window as any)
 const oldBaseURL = w.baseURL
 
 jest.mock('../../mutator')
-const mockedMutator = mocked(mutator, true)
+const mockedMutator = mocked(mutator)
 
 jest.mock('../../octoClient')
-const mockedOctoClient = mocked(octoClient, true)
+const mockedOctoClient = mocked(octoClient)
 
 beforeEach(() => {
     jest.resetAllMocks()

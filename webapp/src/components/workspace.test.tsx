@@ -24,8 +24,8 @@ jest.useFakeTimers()
 jest.mock('../utils')
 jest.mock('../octoClient')
 jest.mock('draft-js/lib/generateRandomKey', () => () => '123')
-const mockedUtils = mocked(Utils, true)
-const mockedOctoClient = mocked(octoClient, true)
+const mockedUtils = mocked(Utils)
+const mockedOctoClient = mocked(octoClient)
 const board = TestBlockFactory.createBoard()
 board.id = 'board1'
 board.teamId = 'team-id'

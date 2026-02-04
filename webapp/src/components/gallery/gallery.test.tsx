@@ -19,7 +19,7 @@ import mutator from '../../mutator'
 import Gallery from './gallery'
 
 jest.mock('../../mutator')
-const mockedMutator = mocked(mutator, true)
+const mockedMutator = mocked(mutator)
 
 describe('src/components/gallery/Gallery', () => {
     const board = TestBlockFactory.createBoard()

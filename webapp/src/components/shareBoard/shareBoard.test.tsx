@@ -28,8 +28,8 @@ const viewId = boardId
 jest.mock('../../octoClient')
 jest.mock('../../utils')
 
-const mockedOctoClient = mocked(client, true)
-const mockedUtils = mocked(Utils, true)
+const mockedOctoClient = mocked(client)
+const mockedUtils = mocked(Utils)
 
 let params = {}
 jest.mock('react-router', () => {

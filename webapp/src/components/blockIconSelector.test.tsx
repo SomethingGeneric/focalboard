@@ -22,7 +22,7 @@ const card = TestBlockFactory.createCard()
 const icon = '👍'
 
 jest.mock('../mutator')
-const mockedMutator = mocked(mutator, true)
+const mockedMutator = mocked(mutator)
 
 describe('components/blockIconSelector', () => {
     beforeEach(() => {
