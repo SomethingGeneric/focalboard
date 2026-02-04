@@ -7,8 +7,6 @@ import {FormattedMessage} from 'react-intl'
 import {useMeasurePunchouts} from '../../tutorial_tour_tip/hooks'
 
 import './add_description.scss'
-import {Utils} from '../../../utils'
-import addDescription from '../../../../static/addDescription.png'
 
 import {CardTourSteps, TOUR_CARD} from '../index'
 import TourTipRenderer from '../tourTipRenderer/tourTipRenderer'
@@ -41,7 +39,6 @@ const AddDescriptionTourStep = (): JSX.Element | null => {
             classname='AddDescriptionTourStep'
             telemetryTag='tourPoint2c'
             placement={'top-start'}
-            imageURL={Utils.buildURL(addDescription, true)}
             hideBackdrop={true}
         />
     )
