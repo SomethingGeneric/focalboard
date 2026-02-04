@@ -235,14 +235,6 @@ exports[`components/cardDetail/CardDetail should show add comments tour tip 1`] 
           You can comment on issues, and even @mention your fellow Mattermost users to get their attention.
         </div>
         <div
-          class="tutorial-tour-tip__image"
-        >
-          <img
-            alt="tutorial tour tip product image"
-            src="http://localhost/test-file-stub"
-          />
-        </div>
-        <div
           class="tutorial-tour-tip__footer"
         >
           <div
@@ -360,14 +352,6 @@ exports[`components/cardDetail/CardDetail should show add description tour tip 1
           Add a description to your card so your teammates know what the card is about.
         </div>
         <div
-          class="tutorial-tour-tip__image"
-        >
-          <img
-            alt="tutorial tour tip product image"
-            src="http://localhost/test-file-stub"
-          />
-        </div>
-        <div
           class="tutorial-tour-tip__footer"
         >
           <div
@@ -481,14 +465,6 @@ exports[`components/cardDetail/CardDetail should show add properties tour tip 1`
           class="tutorial-tour-tip__body"
         >
           Add various properties to cards to make them more powerful!
-        </div>
-        <div
-          class="tutorial-tour-tip__image"
-        >
-          <img
-            alt="tutorial tour tip product image"
-            src="http://localhost/test-file-stub"
-          />
         </div>
         <div
           class="tutorial-tour-tip__footer"
