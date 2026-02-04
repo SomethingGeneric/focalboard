@@ -1,6 +1,6 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
-import React, {useEffect, useState, useMemo, useCallback} from 'react'
+import React, {useEffect, useState, useCallback} from 'react'
 import {batch} from 'react-redux'
 import {FormattedMessage, useIntl} from 'react-intl'
 import {useRouteMatch, useHistory} from 'react-router-dom'
@@ -93,13 +93,6 @@ const BoardPage = (props: Props): JSX.Element => {
         dispatch(setTeam(teamId))
     }, [teamId])
 
-    const loadAction: (boardId: string) => any = useMemo(() => {
-        if (props.readonly) {
-            return initialReadOnlyLoad
-        }
-        return initialLoad
-    }, [props.readonly])
-
     useWebsockets(teamId, (wsClient) => {
         const incrementalBlockUpdate = (_: WSClient, blocks: Block[]) => {
             const teamBlocks = blocks
@@ -137,10 +130,14 @@ const BoardPage = (props: Props): JSX.Element => {
         }
 
         const dispatchLoadAction = () => {
-            dispatch(loadAction(match.params.boardId))
+            if (props.readonly) {
+                dispatch(initialReadOnlyLoad(match.params.boardId))
+            } else {
+                dispatch(initialLoad())
+            }
         }
 
-        Utils.log('useWEbsocket adding onChange handler')
+        Utils.log('useWebsocket adding onChange handler')
         wsClient.addOnChange(incrementalBlockUpdate, 'block')
         wsClient.addOnChange(incrementalBoardUpdate, 'board')
         wsClient.addOnChange(incrementalBoardMemberUpdate, 'boardMembers')
@@ -209,7 +206,11 @@ const BoardPage = (props: Props): JSX.Element => {
     }, [])
 
     useEffect(() => {
-        dispatch(loadAction(match.params.boardId))
+        if (props.readonly) {
+            dispatch(initialReadOnlyLoad(match.params.boardId))
+        } else {
+            dispatch(initialLoad())
+        }
 
         if (match.params.boardId) {
             // set the active board
