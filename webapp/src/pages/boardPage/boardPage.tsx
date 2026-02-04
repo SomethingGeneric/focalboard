@@ -137,7 +137,7 @@ const BoardPage = (props: Props): JSX.Element => {
             }
         }
 
-        Utils.log('useWEbsocket adding onChange handler')
+        Utils.log('useWebsocket adding onChange handler')
         wsClient.addOnChange(incrementalBlockUpdate, 'block')
         wsClient.addOnChange(incrementalBoardUpdate, 'board')
         wsClient.addOnChange(incrementalBoardMemberUpdate, 'boardMembers')
