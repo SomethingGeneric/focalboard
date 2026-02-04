@@ -12,11 +12,11 @@ import {Provider as ReduxProvider} from 'react-redux'
 
 import userEvent from '@testing-library/user-event'
 
+import {thunk} from 'redux-thunk'
+
 import configureStore from 'redux-mock-store'
 
 import {mocked} from 'jest-mock'
-
-import thunk from 'redux-thunk'
 
 import {wrapIntl} from '../../testUtils'
 

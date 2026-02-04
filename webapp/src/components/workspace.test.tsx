@@ -8,7 +8,7 @@ import {mocked} from 'jest-mock'
 
 import userEvent from '@testing-library/user-event'
 
-import thunk from 'redux-thunk'
+import {thunk} from 'redux-thunk'
 
 import {IUser} from '../user'
 import octoClient from '../octoClient'
@@ -248,7 +248,7 @@ describe('src/components/workspace', () => {
     })
 
     test('return workspace with BoardTemplateSelector component', async () => {
-        const emptyStore = mockStateStore([], {
+        const emptyStore = mockStateStore([thunk], {
             users: {
                 me,
                 boardUsers: {[me.id]: me},
