@@ -22,7 +22,7 @@ import mutator from '../../mutator'
 import CreateCategory from './createCategory'
 
 jest.mock('../../mutator')
-const mockedMutator = mocked(mutator, true)
+const mockedMutator = mocked(mutator)
 
 describe('components/createCategory/CreateCategory', () => {
     const me: IUser = {

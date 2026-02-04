@@ -29,9 +29,9 @@ jest.mock('draft-js/lib/generateRandomKey', () => () => '123')
 beforeAll(mockDOM)
 
 describe('components/contentBlock', () => {
-    const mockedMutator = mocked(mutator, true)
-    const mockedUtils = mocked(Utils, true)
-    const mockedOcto = mocked(octoClient, true)
+    const mockedMutator = mocked(mutator)
+    const mockedUtils = mocked(Utils)
+    const mockedOcto = mocked(octoClient)
 
     mockedUtils.createGuid.mockReturnValue('test-id')
     mockedOcto.getFileAsDataUrl.mockResolvedValue({url: 'test.jpg'})

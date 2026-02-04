@@ -22,8 +22,8 @@ jest.mock('../../components/flashMessages')
 jest.mock('../../mutator')
 
 const mockedCopy = jest.spyOn(Utils, 'copyTextToClipboard').mockImplementation(() => true)
-const mockedSendFlashMessage = mocked(sendFlashMessage, true)
-const mockedMutator = mocked(mutator, true)
+const mockedSendFlashMessage = mocked(sendFlashMessage)
+const mockedMutator = mocked(mutator)
 
 describe('properties/link', () => {
     beforeEach(jest.clearAllMocks)

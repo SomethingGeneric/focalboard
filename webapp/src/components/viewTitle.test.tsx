@@ -20,8 +20,8 @@ jest.mock('../mutator')
 jest.mock('../utils')
 jest.mock('draft-js/lib/generateRandomKey', () => () => '123')
 
-const mockedMutator = mocked(mutator, true)
-const mockedUtils = mocked(Utils, true)
+const mockedMutator = mocked(mutator)
+const mockedUtils = mocked(Utils)
 mockedUtils.createGuid.mockReturnValue('test-id')
 
 beforeAll(() => {

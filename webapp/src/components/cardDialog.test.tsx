@@ -23,9 +23,9 @@ jest.mock('../octoClient')
 jest.mock('../utils')
 jest.mock('draft-js/lib/generateRandomKey', () => () => '123')
 
-const mockedUtils = mocked(Utils, true)
-const mockedMutator = mocked(mutator, true)
-const mockedOctoClient = mocked(octoClient, true)
+const mockedUtils = mocked(Utils)
+const mockedMutator = mocked(mutator)
+const mockedOctoClient = mocked(octoClient)
 mockedUtils.createGuid.mockReturnValue('test-id')
 
 beforeAll(() => {
