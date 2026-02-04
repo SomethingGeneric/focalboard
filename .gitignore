@@ -71,3 +71,11 @@ server/vendor
 docker/certs
 docker/data
 server/**/*.coverage
+
+# Sanity check test files (in root only)
+/take-screenshot.js
+/sanity-screenshot.png
+
+# Root-level package files (created by sanity workflow in CI)
+/package.json
+/package-lock.json
